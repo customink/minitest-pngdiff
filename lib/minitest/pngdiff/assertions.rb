@@ -10,7 +10,7 @@ module Minitest
     # or string blob representing the PNG data
     def assert_png_diff(png1, png2, threshold, diff_method: :distance, msg: nil)
       diff = compare_images(png1, png2, diff_method)
-      changed = diff.select{|diff| diff != 0}
+      changed = diff.select{|d| d != 0}
       difference = (changed.inject(0.0, :+) / diff.length)
       msg ||= "Expected PNGs to have a distance of less than #{threshold} but was #{difference}"
       assert  difference <= threshold, msg
@@ -20,7 +20,7 @@ module Minitest
     # or string blob representing the PNG data
     def refute_png_diff(png1, png2, threshold, diff_method: :distance, msg: nil)
       diff = compare_images(png1, png2, diff_method)
-      changed = diff.select{|diff| diff != 0}
+      changed = diff.select{|d| d != 0}
       difference = (changed.inject(0.0, :+) / diff.length)
       msg ||= "Expected PNGs to have a distance of greater than #{threshold} but was #{difference}"
       refute difference < threshold, msg
