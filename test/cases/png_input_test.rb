@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Minitest::Pngdiff::PngInputTest < Minitest::Test
+class PngInputTest < TestCase
   def test_png_file_path_input
     png1 = comparison_png(0)
     png2 = comparison_png(0)

@@ -1,4 +1,7 @@
 language: ruby
 rvm:
   - 2.3.0
+gemfile:
+  - gemfiles/minitest_4.gemfile
+  - gemfiles/minitest_5.gemfile
 before_install: gem install bundler -v 1.11.2

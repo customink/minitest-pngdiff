@@ -1,16 +1,15 @@
 require 'chunky_png'
 require 'oily_png'
 
-require 'minitest/pngdiff/methods/distance'
+require 'pngdiff/methods/distance'
 
-module Minitest
+module Pngdiff
   module Assertions
-
     # png1 and png2 can be IO streams, a filename string,
     # or string blob representing the PNG data
     def assert_png_diff(png1, png2, threshold, diff_method: :distance, msg: nil)
       diff = compare_images(png1, png2, diff_method)
-      changed = diff.select{|d| d != 0}
+      changed = diff.select { |d| d != 0 }
       difference = (changed.inject(0.0, :+) / diff.length)
       msg ||= "Expected PNGs to have a distance of less than #{threshold} but was #{difference}"
       assert  difference <= threshold, msg
@@ -20,7 +19,7 @@ module Minitest
     # or string blob representing the PNG data
     def refute_png_diff(png1, png2, threshold, diff_method: :distance, msg: nil)
       diff = compare_images(png1, png2, diff_method)
-      changed = diff.select{|d| d != 0}
+      changed = diff.select { |d| d != 0 }
       difference = (changed.inject(0.0, :+) / diff.length)
       msg ||= "Expected PNGs to have a distance of greater than #{threshold} but was #{difference}"
       refute difference < threshold, msg
@@ -35,6 +34,7 @@ module Minitest
     end
 
     private
+
     def compare_images(png1, png2, diff_method)
       png1 = build_chunky_png_image(png1)
       png2 = build_chunky_png_image(png2)
@@ -51,7 +51,7 @@ module Minitest
     end
 
     def build_differ(diff_method)
-      Object.const_get("Minitest::Pngdiff::Methods::#{diff_method.capitalize}").new
+      Object.const_get("Pngdiff::Methods::#{diff_method.capitalize}").new
     end
 
     def build_chunky_png_image(png)
@@ -61,12 +61,12 @@ module Minitest
 
     def determine_png_input_type(png)
       type = :from_io
-      if (png.is_a? String)
-        if (png[-3..-1] == 'png')
-          type = :from_file
-        else
-          type = :from_blob
-        end
+      if png.is_a? String
+        type = if png[-3..-1] == 'png'
+                 :from_file
+               else
+                 :from_blob
+               end
       end
       type
     end
