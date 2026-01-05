@@ -1,5 +1,7 @@
 # Minitest::Pngdiff
 
+[![Overall](https://img.shields.io/endpoint?style=flat&url=https://app.opslevel.com/api/service_level/kElmdlGJcV-U0_nFnhChtwrCaCuRevsWpIALgP0LdU4)](https://app.opslevel.com/services/minitest-pngdiff/maturity-report)
+
 Provides assertions that allow direct PNG comparison via ChunkyPNG.
 
 ## Installation
